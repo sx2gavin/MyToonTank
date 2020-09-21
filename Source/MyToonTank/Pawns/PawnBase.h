@@ -9,6 +9,8 @@
 class UStaticMeshComponent;
 class UCapsuleComponent;
 class USceneComponent;
+class AProjectileBase;
+class UHealthComponent;
 
 UCLASS()
 class MYTOONTANK_API APawnBase : public APawn
@@ -25,6 +27,12 @@ protected:
 	UStaticMeshComponent* TurretMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", Meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawnPoint;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", Meta = (AllowPrivateAccess = "true"))
+	UHealthComponent* Health;
+
+	// Variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", Meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AProjectileBase> ProjectileType;
 
 public:
 	// Sets default values for this pawn's properties

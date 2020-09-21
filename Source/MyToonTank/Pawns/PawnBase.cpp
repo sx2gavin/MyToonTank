@@ -4,6 +4,8 @@
 #include "PawnBase.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "MyToonTank/Actors/ProjectileBase.h"
+#include "MyToonTank/Components/HealthComponent.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -22,6 +24,8 @@ APawnBase::APawnBase()
 	
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
+
+	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 }
 
 // Called when the game starts or when spawned
@@ -40,6 +44,12 @@ void APawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void APawnBase::Fire()
 {
+	AProjectileBase* Projectile = GetWorld()->SpawnActor<AProjectileBase>(
+		ProjectileType,
+		ProjectileSpawnPoint->GetComponentLocation(),
+		ProjectileSpawnPoint->GetComponentRotation());
+
+	Projectile->SetOwner(this);
 }
 
 void APawnBase::Destruction()

@@ -71,10 +71,7 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("Forward", this, &APawnTank::CalculateMoveForward);
 	PlayerInputComponent->BindAxis("Right", this, &APawnTank::CalculateMoveRight);
 	PlayerInputComponent->BindAxis("Aim", this, &APawnTank::CalculateAim);
-}
-
-void APawnTank::Fire()
-{
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APawnBase::Fire);
 }
 
 void APawnTank::Destruction()

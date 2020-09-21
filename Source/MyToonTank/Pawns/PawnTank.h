@@ -8,6 +8,7 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class AProjectileBase;
 
 /**
  * 
@@ -56,8 +57,6 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	void Fire() override;
 
 	void Destruction() override;
 

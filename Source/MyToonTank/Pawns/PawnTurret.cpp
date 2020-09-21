@@ -61,6 +61,9 @@ void APawnTurret::Fire()
 
 void APawnTurret::Destruction()
 {
+	Super::Destruction();
+
+	Destroy();
 }
 
 void APawnTurret::BeginPlay()
