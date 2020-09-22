@@ -76,6 +76,7 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void APawnTank::Destruction()
 {
+	Super::Destruction();
 }
 
 void APawnTank::BeginPlay()

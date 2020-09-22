@@ -11,6 +11,7 @@ class UCapsuleComponent;
 class USceneComponent;
 class AProjectileBase;
 class UHealthComponent;
+class AToonTankGameModeBase;
 
 UCLASS()
 class MYTOONTANK_API APawnBase : public APawn
@@ -34,12 +35,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", Meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AProjectileBase> ProjectileType;
 
+	AToonTankGameModeBase* CurrentGameMode;
+
 public:
 	// Sets default values for this pawn's properties
 	APawnBase();
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void Fire();
 

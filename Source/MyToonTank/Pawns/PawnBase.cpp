@@ -6,6 +6,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "MyToonTank/Actors/ProjectileBase.h"
 #include "MyToonTank/Components/HealthComponent.h"
+#include "MyToonTank/GameModes/ToonTankGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -33,13 +35,7 @@ void APawnBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
-}
-
-// Called to bind functionality to input
-void APawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	CurrentGameMode = Cast<AToonTankGameModeBase>(UGameplayStatics::GetGameMode(this));
 }
 
 void APawnBase::Fire()
@@ -54,5 +50,6 @@ void APawnBase::Fire()
 
 void APawnBase::Destruction()
 {
+	CurrentGameMode->ActorDied(this);
 }
 

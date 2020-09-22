@@ -55,8 +55,6 @@ void APawnTurret::Tick(float DeltaTime)
 void APawnTurret::Fire()
 {
 	Super::Fire();
-
-	UE_LOG(LogTemp, Warning, TEXT("Fire"));
 }
 
 void APawnTurret::Destruction()
