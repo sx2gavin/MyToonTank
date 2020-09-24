@@ -51,5 +51,6 @@ void APawnBase::Fire()
 void APawnBase::Destruction()
 {
 	CurrentGameMode->ActorDied(this);
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DeathEffect, GetActorLocation());
 }
 

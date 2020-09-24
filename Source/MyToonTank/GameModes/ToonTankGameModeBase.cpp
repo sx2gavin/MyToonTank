@@ -6,6 +6,7 @@
 #include "MyToonTank/Pawns/PawnBase.h"
 #include "MyToonTank/Pawns/PawnTank.h"
 #include "MyToonTank/Pawns/PawnTurret.h"
+#include "MyToonTank/PlayerControllers/PlayerControllerBase.h"
 
 AToonTankGameModeBase::AToonTankGameModeBase()
 {
@@ -33,14 +34,23 @@ void AToonTankGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TArray<AActor*> EnemyArray;
-	UGameplayStatics::GetAllActorsOfClass(this, EnemyPawnType, EnemyArray);
-	EnemyTurretCount = EnemyArray.Num();
 	HandleGameStart();
 }
 
 void AToonTankGameModeBase::HandleGameStart()
 {
+	TArray<AActor*> EnemyArray;
+	UGameplayStatics::GetAllActorsOfClass(this, EnemyPawnType, EnemyArray);
+	EnemyTurretCount = EnemyArray.Num();
+
+	APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
+	PlayerController->EnableDisablePlayerControl(false);
+
+	FTimerHandle EnablePlayerHandle;
+	FTimerDelegate EnablePlayerDelegate = FTimerDelegate::CreateUObject(PlayerController, &APlayerControllerBase::EnableDisablePlayerControl, true);
+
+	GetWorld()->GetTimerManager().SetTimer(EnablePlayerHandle, EnablePlayerDelegate, StartUpDelay, false);
+
 	GameStart();
 }
 

@@ -4,6 +4,7 @@
 #include "ProjectileBase.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 void AProjectileBase::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
@@ -12,6 +13,8 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActo
 	if (MyOwner && OtherActor && MyOwner != OtherActor)
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType);
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitEffect, GetActorLocation());
+		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(HitCameraShake);
 		Destroy();
 	}
 }
@@ -27,6 +30,9 @@ AProjectileBase::AProjectileBase()
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement"));
 	InitialLifeSpan = 3.f;
+
+	ProjectileTrailEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Projectile Trail"));
+	ProjectileTrailEffect->SetupAttachment(ProjectileMesh);
 }
 
 // Called when the game starts or when spawned

@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "DrawDebugHelpers.h"
+#include "MyToonTank/PlayerControllers/PlayerControllerBase.h"
 
 void APawnTank::CalculateMoveForward(float AxisValue)
 {
@@ -77,6 +78,13 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void APawnTank::Destruction()
 {
 	Super::Destruction();
+
+	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(GetController()))
+	{
+		PlayerController->EnableDisablePlayerControl(false);
+		SetActorHiddenInGame(true);
+		SetActorTickEnabled(false);
+	}
 }
 
 void APawnTank::BeginPlay()

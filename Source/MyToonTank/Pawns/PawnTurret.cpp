@@ -21,7 +21,7 @@ void APawnTurret::TurnToPlayerTank()
 
 bool APawnTurret::PlayerTankInRange()
 {
-	if (PlayerTank)
+	if (PlayerTank && !PlayerTank->IsHidden())
 	{
 		float DistToPlayerTank = FVector::Dist(GetActorLocation(), PlayerTank->GetActorLocation());
 		if (DistToPlayerTank <= FireRange)

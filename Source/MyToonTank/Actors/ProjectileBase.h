@@ -8,6 +8,7 @@
 
 class UProjectileMovementComponent;
 class UDamageType;
+class UParticleSystemComponent;
 
 UCLASS()
 class MYTOONTANK_API AProjectileBase : public AActor
@@ -19,6 +20,8 @@ private:
 	UStaticMeshComponent* ProjectileMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", Meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", Meta = (AllowPrivateAccess = "true"))
+	UParticleSystemComponent* ProjectileTrailEffect;
 
 	// Variables
 	UPROPERTY(EditAnywhere, Category = "Speed")
@@ -27,6 +30,10 @@ private:
 	float Damage = 50.f;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Damage", Meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UDamageType> DamageType;
+	UPROPERTY(EditAnywhere, Category = "Effect")
+	UParticleSystem* HitEffect;
+	UPROPERTY(EditAnywhere, Category = "Effect")
+	TSubclassOf<UCameraShake> HitCameraShake;
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent,

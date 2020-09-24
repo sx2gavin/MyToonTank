@@ -34,6 +34,8 @@ protected:
 	// Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", Meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AProjectileBase> ProjectileType;
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	UParticleSystem* DeathEffect;
 
 	AToonTankGameModeBase* CurrentGameMode;
 
