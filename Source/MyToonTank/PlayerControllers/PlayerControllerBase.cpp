@@ -3,6 +3,10 @@
 
 #include "PlayerControllerBase.h"
 
+APlayerControllerBase::APlayerControllerBase()
+{
+	bShowMouseCursor = true;
+}
 
 void APlayerControllerBase::EnableDisablePlayerControl(bool bEnable)
 {
@@ -15,9 +19,11 @@ void APlayerControllerBase::EnableDisablePlayerControl(bool bEnable)
 	if (bEnable)
 	{
 		GetPawn()->EnableInput(this);
+		bShowMouseCursor = false;
 	}
 	else
 	{
 		GetPawn()->DisableInput(this);
+		bShowMouseCursor = true;
 	}
 }

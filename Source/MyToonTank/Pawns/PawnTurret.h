@@ -7,6 +7,7 @@
 #include "PawnTurret.generated.h"
 
 class APawnTank;
+class UScoreComponent;
 /**
  * 
  */
@@ -16,6 +17,9 @@ class MYTOONTANK_API APawnTurret : public APawnBase
 	GENERATED_BODY()
 
 private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", Meta = (AllowPrivateAccess = "true"))
+	UScoreComponent* ScoreComponent;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", Meta = (AllowPrivateAccess = "true"))
 	float FireRange = 100.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", Meta = (AllowPrivateAccess = "true"))

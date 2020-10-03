@@ -36,6 +36,8 @@ protected:
 	TSubclassOf<AProjectileBase> ProjectileType;
 	UPROPERTY(EditAnywhere, Category = "Effects")
 	UParticleSystem* DeathEffect;
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	TSubclassOf<UCameraShake> ExplodeCameraShake;
 
 	AToonTankGameModeBase* CurrentGameMode;
 

@@ -52,5 +52,6 @@ void APawnBase::Destruction()
 {
 	CurrentGameMode->ActorDied(this);
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DeathEffect, GetActorLocation());
+	GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(ExplodeCameraShake);
 }
 

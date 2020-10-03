@@ -33,7 +33,13 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Effect")
 	UParticleSystem* HitEffect;
 	UPROPERTY(EditAnywhere, Category = "Effect")
+	UParticleSystem* SpawnEffect;
+	UPROPERTY(EditAnywhere, Category = "Effect")
 	TSubclassOf<UCameraShake> HitCameraShake;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect", Meta = (AllowPrivateAccess = "true"))
+	USoundBase* LaunchSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect", Meta = (AllowPrivateAccess = "true"))
+	USoundBase* ExplosionSound;
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent,

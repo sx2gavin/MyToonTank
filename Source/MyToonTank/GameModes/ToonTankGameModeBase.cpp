@@ -7,6 +7,7 @@
 #include "MyToonTank/Pawns/PawnTank.h"
 #include "MyToonTank/Pawns/PawnTurret.h"
 #include "MyToonTank/PlayerControllers/PlayerControllerBase.h"
+#include "MyToonTank/Components/ScoreComponent.h"
 
 AToonTankGameModeBase::AToonTankGameModeBase()
 {
@@ -22,6 +23,15 @@ void AToonTankGameModeBase::ActorDied(APawnBase* Actor)
 	}
 	else if (APawnTurret* Turret = Cast<APawnTurret>(Actor))
 	{
+		UScoreComponent* TurretScore = Turret->FindComponentByClass<UScoreComponent>();
+
+		if (TurretScore)
+		{
+			PlayerScore += TurretScore->GetScorePoint();
+			PlayerScoreUpdated(PlayerScore);
+			// UE_LOG(LogTemp, Warning, TEXT("Score: %d"), PlayerScore);
+		}
+
 		EnemyTurretCount--;
 		if (EnemyTurretCount <= 0)
 		{
@@ -34,27 +44,37 @@ void AToonTankGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	HandleGameStart();
+	HandleGameStartMenu();
 }
 
 void AToonTankGameModeBase::HandleGameStart()
+{
+	PlayerController->EnableDisablePlayerControl(true);
+	APawnTank* PawnTank = Cast<APawnTank>(PlayerController->GetPawn());
+	if (PawnTank)
+	{
+		PawnTank->CreateHealthWidget();
+	}
+
+	GameStart();
+}
+
+void AToonTankGameModeBase::HandleGameStartMenu()
 {
 	TArray<AActor*> EnemyArray;
 	UGameplayStatics::GetAllActorsOfClass(this, EnemyPawnType, EnemyArray);
 	EnemyTurretCount = EnemyArray.Num();
 
-	APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
+	PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
 	PlayerController->EnableDisablePlayerControl(false);
 
-	FTimerHandle EnablePlayerHandle;
-	FTimerDelegate EnablePlayerDelegate = FTimerDelegate::CreateUObject(PlayerController, &APlayerControllerBase::EnableDisablePlayerControl, true);
+	PlayerScore = 0;
 
-	GetWorld()->GetTimerManager().SetTimer(EnablePlayerHandle, EnablePlayerDelegate, StartUpDelay, false);
-
-	GameStart();
+	GameStartMenu();
 }
 
 void AToonTankGameModeBase::HandleGameOver(bool PlayerHasDied)
 {
+	PlayerController->bShowMouseCursor = true;
 	GameOver(PlayerHasDied);
 }

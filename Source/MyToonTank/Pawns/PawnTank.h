@@ -60,6 +60,9 @@ public:
 
 	virtual void Destruction() override;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void CreateHealthWidget();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

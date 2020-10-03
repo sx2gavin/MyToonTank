@@ -14,6 +14,7 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActo
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType);
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitEffect, GetActorLocation());
+		UGameplayStatics::PlaySoundAtLocation(this, ExplosionSound, GetActorLocation());
 		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(HitCameraShake);
 		Destroy();
 	}
@@ -42,5 +43,7 @@ void AProjectileBase::BeginPlay()
 	ProjectileMovement->InitialSpeed = ProjectileSpeed;
 	ProjectileMovement->MaxSpeed = ProjectileSpeed;
 
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), SpawnEffect, GetActorLocation());
+	UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::OnHit);
 }

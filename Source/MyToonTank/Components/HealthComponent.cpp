@@ -26,7 +26,11 @@ UHealthComponent::UHealthComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 
-	Health = DefaultHealth;
+}
+
+float UHealthComponent::GetHealthPercentage()
+{
+	return Health / DefaultHealth;
 }
 
 
@@ -34,6 +38,8 @@ UHealthComponent::UHealthComponent()
 void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	Health = DefaultHealth;
 
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::OnHostTakeDamage);
 }

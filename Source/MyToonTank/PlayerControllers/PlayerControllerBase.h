@@ -15,6 +15,7 @@ class MYTOONTANK_API APlayerControllerBase : public APlayerController
 	GENERATED_BODY()
 
 public:
+	APlayerControllerBase();
 	void EnableDisablePlayerControl(bool bEnable);
 	
 };

@@ -7,6 +7,7 @@
 #include "ToonTankGameModeBase.generated.h"
 
 class APawnBase;
+class APlayerControllerBase;
 
 /**
  * 
@@ -20,13 +21,20 @@ public:
 	AToonTankGameModeBase();
 	void ActorDied(APawnBase* Actor);
 
+	UFUNCTION(BlueprintCallable)
+	void HandleGameStart();
+
 protected:
 	virtual void BeginPlay() override;
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameStart();
 	UFUNCTION(BlueprintImplementableEvent)
+	void GameStartMenu();
+	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool PlayerHasDied);
+	UFUNCTION(BlueprintImplementableEvent)
+	void PlayerScoreUpdated(int32 Score);
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy", Meta = (AllowPrivateAccess = "true"))
@@ -34,9 +42,11 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay", Meta = (AllowPrivateAccess = "true"))
 	int32 StartUpDelay = 3;
 
+	APlayerControllerBase* PlayerController;
 	int32 EnemyTurretCount = 0;
+	int32 PlayerScore = 0;
 
 	// Functions
-	void HandleGameStart();
+	void HandleGameStartMenu();
 	void HandleGameOver(bool PlayerHasDied);
 };

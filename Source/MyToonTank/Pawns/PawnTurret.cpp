@@ -4,6 +4,7 @@
 #include "PawnTurret.h"
 #include "Kismet/GameplayStatics.h"
 #include "PawnTank.h"
+#include "MyToonTank/Components/ScoreComponent.h"
 
 void APawnTurret::TurnToPlayerTank()
 {
@@ -42,7 +43,7 @@ void APawnTurret::CheckTankToFire()
 
 APawnTurret::APawnTurret()
 {
-
+	ScoreComponent = CreateDefaultSubobject<UScoreComponent>(TEXT("Score"));
 }
 
 void APawnTurret::Tick(float DeltaTime)
