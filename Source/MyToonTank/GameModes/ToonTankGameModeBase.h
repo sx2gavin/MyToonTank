@@ -44,6 +44,8 @@ private:
 
 	APlayerControllerBase* PlayerController;
 	int32 EnemyTurretCount = 0;
+
+	UPROPERTY(BlueprintReadOnly, Meta = (AllowPrivateAccess = "true"))
 	int32 PlayerScore = 0;
 
 	// Functions

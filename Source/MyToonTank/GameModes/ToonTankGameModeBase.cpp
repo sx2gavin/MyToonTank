@@ -76,5 +76,10 @@ void AToonTankGameModeBase::HandleGameStartMenu()
 void AToonTankGameModeBase::HandleGameOver(bool PlayerHasDied)
 {
 	PlayerController->bShowMouseCursor = true;
+	APawnTank* PawnTank = Cast<APawnTank>(PlayerController->GetPawn());
+	if (PawnTank)
+	{
+		PawnTank->RemoveHealthWidget();
+	}
 	GameOver(PlayerHasDied);
 }

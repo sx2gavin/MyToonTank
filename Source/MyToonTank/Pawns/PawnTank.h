@@ -62,6 +62,8 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void CreateHealthWidget();
+	UFUNCTION(BlueprintImplementableEvent)
+	void RemoveHealthWidget();
 
 protected:
 	// Called when the game starts or when spawned
